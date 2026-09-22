@@ -258,6 +258,12 @@ The workflow configuration is located at:
 
 The CI status badge at the top of this README displays the current status of the automated test workflow.
 
+### GitHub Actions Results
+
+The following screenshot shows three successful GitHub Actions workflow runs on the `main` branch.
+
+![GitHub Actions Results](images/github-actions-results.png)
+
 ## Project Files
 
 - `main.py` - Performs the Pandas analysis, data quality checks, filtering and grouping, visualization, machine learning experiment, and Pandas/Polars comparison.
@@ -268,5 +274,6 @@ The CI status badge at the top of this README displays the current status of the
 - `requirements.txt` - Python dependencies required to reproduce the project.
 - `.github/workflows/tests.yml` - GitHub Actions workflow for automated testing.
 - `images/pytest-results.png` - Screenshot showing all local pytest tests passing.
+- `images/github-actions-results.png` - Screenshot showing three successful GitHub Actions workflow runs.
 - `rust_vs_python_intro.ipynb` - Rust exercises and experiments with mutability, ownership, cloning, and borrowing.
 - `README.md` - Project documentation.
