@@ -1,5 +1,7 @@
 # Wine Quality Data Analysis
 
+[![Tests](https://github.com/ZhihaoZhou0/wine-quality-analysis/actions/workflows/tests.yml/badge.svg)](https://github.com/ZhihaoZhou0/wine-quality-analysis/actions/workflows/tests.yml)
+
 ## Project Goal
 
 The goal of this project is to explore the merged red and white wine quality dataset using Pandas and Polars. The analysis examines differences between red and white wines, investigates relationships between physicochemical properties and wine quality, and uses a machine learning model to predict wine quality.
@@ -231,6 +233,12 @@ python -m pytest -v
 
 The current test suite contains **6 tests**, and all tests pass successfully.
 
+### Local Test Results
+
+The following screenshot shows all five unit tests and the integration test passing successfully.
+
+![Pytest Results](images/pytest-results.png)
+
 ## Continuous Integration
 
 GitHub Actions is configured to automatically run the test suite whenever changes are pushed to the `main` branch or a pull request targets `main`.
@@ -248,6 +256,8 @@ The workflow configuration is located at:
 .github/workflows/tests.yml
 ```
 
+The CI status badge at the top of this README displays the current status of the automated test workflow.
+
 ## Project Files
 
 - `main.py` - Performs the Pandas analysis, data quality checks, filtering and grouping, visualization, machine learning experiment, and Pandas/Polars comparison.
@@ -257,5 +267,6 @@ The workflow configuration is located at:
 - `tests/test_integration.py` - Integration test for the core analysis workflow.
 - `requirements.txt` - Python dependencies required to reproduce the project.
 - `.github/workflows/tests.yml` - GitHub Actions workflow for automated testing.
+- `images/pytest-results.png` - Screenshot showing all local pytest tests passing.
 - `rust_vs_python_intro.ipynb` - Rust exercises and experiments with mutability, ownership, cloning, and borrowing.
 - `README.md` - Project documentation.
