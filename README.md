@@ -11,6 +11,8 @@ This project includes:
 - Data visualization
 - Machine learning exploration using Random Forest Regression
 - A performance comparison between Pandas and Polars
+- Unit and integration testing using pytest
+- Continuous integration using GitHub Actions
 
 ## Dataset
 
@@ -41,10 +43,10 @@ The `quality` column contains integer quality scores ranging from 3 to 9 and is 
 
 This project was developed using **Python 3.12**.
 
-Install the required Python packages:
+Install the required Python packages from `requirements.txt`:
 
 ```bash
-python -m pip install pandas polars matplotlib scikit-learn
+python -m pip install -r requirements.txt
 ```
 
 Run the analysis from the project directory:
@@ -53,7 +55,7 @@ Run the analysis from the project directory:
 python main.py
 ```
 
-The script performs the data inspection, data quality checks, filtering and grouping, visualization, machine learning experiment, and Pandas/Polars performance comparison.
+The script performs data inspection, data quality checks, filtering and grouping, visualization, machine learning analysis, and a Pandas/Polars performance comparison.
 
 ## Data Inspection and Quality
 
@@ -207,10 +209,53 @@ The main findings from this analysis are:
 - The Random Forest achieved an MAE of 0.438 and an R² of 0.497 on the test set.
 - Pandas and Polars produced the same group-level results, while Polars was faster on average in the five-run performance experiment.
 
+## Testing
+
+The project uses `pytest` to validate the core functionality of the data analysis workflow.
+
+The test suite includes five unit tests covering:
+
+- Dataset loading and expected structure
+- Missing-value and duplicate detection
+- Filtering and grouping operations
+- Random Forest model training and evaluation
+- Visualization output
+
+An additional integration test validates the core workflow from loading the dataset through data quality checks, analysis, and machine learning model training.
+
+Run all tests from the project directory with:
+
+```bash
+python -m pytest -v
+```
+
+The current test suite contains **6 tests**, and all tests pass successfully.
+
+## Continuous Integration
+
+GitHub Actions is configured to automatically run the test suite whenever changes are pushed to the `main` branch or a pull request targets `main`.
+
+The CI workflow:
+
+1. Checks out the repository.
+2. Sets up Python 3.12.
+3. Installs the dependencies from `requirements.txt`.
+4. Runs all tests using `pytest`.
+
+The workflow configuration is located at:
+
+```text
+.github/workflows/tests.yml
+```
+
 ## Project Files
 
 - `main.py` - Performs the Pandas analysis, data quality checks, filtering and grouping, visualization, machine learning experiment, and Pandas/Polars comparison.
-- `wine_quality_merged.csv` - The dataset used for the analysis.
+- `wine_quality_merged.csv` - Dataset used for the analysis.
 - `alcohol_by_quality.png` - Boxplot showing alcohol content across wine quality scores.
+- `tests/test_main.py` - Unit tests for the major analysis functions.
+- `tests/test_integration.py` - Integration test for the core analysis workflow.
+- `requirements.txt` - Python dependencies required to reproduce the project.
+- `.github/workflows/tests.yml` - GitHub Actions workflow for automated testing.
+- `rust_vs_python_intro.ipynb` - Rust exercises and experiments with mutability, ownership, cloning, and borrowing.
 - `README.md` - Project documentation.
-- `rust_vs_python_intro.ipynb` - Contains Rust exercises and experiments with mutability, ownership, cloning, and borrowing.
