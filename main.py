@@ -8,21 +8,27 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error, r2_score
 
 
-
 def load_data():
     """Load the merged red and white wine quality dataset."""
     df = pd.read_csv("wine_quality_merged.csv")
     return df
 
+
 def check_data_quality(df):
     """Check the dataset for missing values and duplicate rows."""
     print("\n=== Data Quality Check ===")
 
+    missing_values = df.isnull().sum()
+    duplicate_count = df.duplicated().sum()
+
     print("\nMissing Values:")
-    print(df.isnull().sum())
+    print(missing_values)
 
     print("\nNumber of Duplicate Rows:")
-    print(df.duplicated().sum())
+    print(duplicate_count)
+
+    return missing_values, duplicate_count
+
 
 def analyze_wine_data(df):
     """Filter high-quality wines and compare summary statistics by wine type."""
@@ -42,6 +48,9 @@ def analyze_wine_data(df):
     print("\nAverage Characteristics by Wine Type:")
     print(type_summary)
 
+    return high_quality, type_summary
+
+
 def create_visualization(df):
     """Visualize the distribution of alcohol content by wine quality."""
     print("\n=== Creating Visualization ===")
@@ -54,12 +63,16 @@ def create_visualization(df):
     plt.suptitle("")
 
     plt.tight_layout()
-    plt.savefig("alcohol_by_quality.png")
+
+    output_file = "alcohol_by_quality.png"
+    plt.savefig(output_file)
     plt.show()
+
+    return output_file
+
 
 def train_model(df):
     """Train a Random Forest model to predict wine quality."""
-
     print("\n=== Machine Learning: Random Forest Regression ===")
 
     features = [
@@ -111,9 +124,11 @@ def train_model(df):
     print("\nFeature Importance:")
     print(feature_importance)
 
+    return model, mae, r2, feature_importance
+
+
 def compare_pandas_polars():
     """Compare Pandas and Polars performance over multiple runs."""
-
     print("\n=== Pandas vs. Polars Performance ===")
 
     runs = 5
@@ -155,9 +170,16 @@ def compare_pandas_polars():
     print(f"Pandas: {pandas_average:.6f} seconds")
     print(f"Polars: {polars_average:.6f} seconds")
 
+    return (
+        pandas_result,
+        polars_result,
+        pandas_average,
+        polars_average,
+    )
 
 
 def main():
+    """Run the complete wine quality analysis workflow."""
     df = load_data()
 
     print("=== First 5 Rows ===")
