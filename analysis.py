@@ -29,6 +29,38 @@ def check_data_quality(df):
     return missing_values, duplicate_count
 
 
+def detect_outliers(df):
+    """Identify potential outliers in numeric features using the IQR rule."""
+    print("\n=== Potential Outliers (IQR Method) ===")
+
+    numeric_columns = df.select_dtypes(include="number").columns.drop("quality")
+    outlier_counts = {}
+
+    for column in numeric_columns:
+        q1 = df[column].quantile(0.25)
+        q3 = df[column].quantile(0.75)
+        iqr = q3 - q1
+
+        lower_bound = q1 - 1.5 * iqr
+        upper_bound = q3 + 1.5 * iqr
+
+        outliers = df[
+            (df[column] < lower_bound) | (df[column] > upper_bound)
+        ]
+
+        outlier_counts[column] = len(outliers)
+
+    outlier_counts = pd.Series(outlier_counts).sort_values(ascending=False)
+
+    print(outlier_counts)
+    print(
+        "\nPotential outliers are retained because extreme chemical "
+        "measurements may represent valid wines rather than data errors."
+    )
+
+    return outlier_counts
+
+
 def analyze_wine_data(df):
     """Filter high-quality wines and compare summary statistics by wine type."""
     print("\n=== Filtering and Grouping ===")

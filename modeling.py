@@ -1,3 +1,6 @@
+from pathlib import Path
+
+import matplotlib.pyplot as plt
 import pandas as pd
 
 from sklearn.ensemble import RandomForestRegressor
@@ -18,6 +21,8 @@ FEATURES = [
     "sulphates",
     "alcohol",
 ]
+
+DEFAULT_IMPORTANCE_PLOT_PATH = Path("feature_importance.png")
 
 
 def train_model(df):
@@ -60,3 +65,27 @@ def train_model(df):
     print(feature_importance)
 
     return model, mae, r2, feature_importance
+
+
+def create_feature_importance_plot(
+    feature_importance,
+    output_file=DEFAULT_IMPORTANCE_PLOT_PATH,
+):
+    """Visualize Random Forest feature importance."""
+    print("\n=== Creating Feature Importance Visualization ===")
+
+    feature_importance.sort_values().plot(
+        kind="barh",
+        figsize=(8, 6),
+    )
+
+    plt.xlabel("Feature Importance")
+    plt.ylabel("Wine Feature")
+    plt.title("Random Forest Feature Importance")
+    plt.tight_layout()
+
+    plt.savefig(output_file)
+    plt.show()
+    plt.close()
+
+    return str(output_file)

@@ -1,12 +1,20 @@
 import os
 
+import matplotlib
+
+matplotlib.use("Agg")
+
+import pandas as pd
+
+
 from analysis import (
     analyze_wine_data,
     check_data_quality,
     create_visualization,
+    detect_outliers,
     load_data,
 )
-from modeling import train_model
+from modeling import create_feature_importance_plot, train_model
 
 
 def test_load_data():
@@ -28,6 +36,23 @@ def test_data_quality():
 
     assert missing_values.sum() == 0
     assert duplicate_count == 1177
+
+
+def test_detect_outliers():
+    """Test that the IQR method detects an obvious extreme value."""
+    sample_df = pd.DataFrame(
+        {
+            "alcohol": [10, 10, 10, 10, 50],
+            "pH": [3.2, 3.2, 3.2, 3.2, 3.2],
+            "quality": [5, 5, 6, 6, 7],
+        }
+    )
+
+    outlier_counts = detect_outliers(sample_df)
+
+    assert outlier_counts["alcohol"] == 1
+    assert outlier_counts["pH"] == 0
+    assert "quality" not in outlier_counts.index
 
 
 def test_analyze_wine_data():
@@ -59,11 +84,24 @@ def test_train_model():
 
 
 def test_create_visualization():
-    """Test that the visualization is successfully created."""
+    """Test that the alcohol-by-quality visualization is created."""
     df = load_data()
 
     output_file = create_visualization(df)
 
     assert output_file == "alcohol_by_quality.png"
+    assert os.path.exists(output_file)
+    assert os.path.getsize(output_file) > 0
+
+
+def test_create_feature_importance_plot():
+    """Test that the feature-importance visualization is created."""
+    df = load_data()
+
+    _, _, _, feature_importance = train_model(df)
+
+    output_file = create_feature_importance_plot(feature_importance)
+
+    assert output_file == "feature_importance.png"
     assert os.path.exists(output_file)
     assert os.path.getsize(output_file) > 0
