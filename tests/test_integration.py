@@ -1,9 +1,9 @@
-from main import (
-    load_data,
-    check_data_quality,
+from analysis import (
     analyze_wine_data,
-    train_model,
+    check_data_quality,
+    load_data,
 )
+from modeling import train_model
 
 
 def test_analysis_workflow():

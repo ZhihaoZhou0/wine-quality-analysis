@@ -1,12 +1,12 @@
 import os
 
-from main import (
-    load_data,
-    check_data_quality,
+from analysis import (
     analyze_wine_data,
+    check_data_quality,
     create_visualization,
-    train_model,
+    load_data,
 )
+from modeling import train_model
 
 
 def test_load_data():
@@ -36,15 +36,12 @@ def test_analyze_wine_data():
 
     high_quality, type_summary = analyze_wine_data(df)
 
-    # Every filtered wine should have quality >= 7
     assert len(high_quality) == 1277
     assert (high_quality["quality"] >= 7).all()
 
-    # Grouped results should contain both wine types
     assert "red" in type_summary.index
     assert "white" in type_summary.index
 
-    # Check an expected summary statistic
     assert type_summary.loc["white", "quality"] > type_summary.loc["red", "quality"]
 
 
