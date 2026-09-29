@@ -1,11 +1,6 @@
 import os
 
-import matplotlib
-
-matplotlib.use("Agg")
-
 import pandas as pd
-
 
 from analysis import (
     analyze_wine_data,

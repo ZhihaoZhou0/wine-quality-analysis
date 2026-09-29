@@ -3,7 +3,6 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import pandas as pd
 
-
 DEFAULT_DATA_PATH = Path("wine_quality_merged.csv")
 DEFAULT_PLOT_PATH = Path("alcohol_by_quality.png")
 
@@ -44,9 +43,7 @@ def detect_outliers(df):
         lower_bound = q1 - 1.5 * iqr
         upper_bound = q3 + 1.5 * iqr
 
-        outliers = df[
-            (df[column] < lower_bound) | (df[column] > upper_bound)
-        ]
+        outliers = df[(df[column] < lower_bound) | (df[column] > upper_bound)]
 
         outlier_counts[column] = len(outliers)
 

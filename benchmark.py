@@ -4,7 +4,6 @@ from pathlib import Path
 import pandas as pd
 import polars as pl
 
-
 DEFAULT_DATA_PATH = Path("wine_quality_merged.csv")
 
 
@@ -27,9 +26,7 @@ def compare_pandas_polars(file_path=DEFAULT_DATA_PATH, runs=5):
         polars_start = time.perf_counter()
 
         polars_df = pl.read_csv(file_path)
-        polars_result = polars_df.group_by("type").agg(
-            pl.col("alcohol").mean()
-        )
+        polars_result = polars_df.group_by("type").agg(pl.col("alcohol").mean())
 
         polars_time = time.perf_counter() - polars_start
         polars_times.append(polars_time)
