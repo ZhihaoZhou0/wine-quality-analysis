@@ -69,6 +69,7 @@ def train_model(df):
 def create_feature_importance_plot(
     feature_importance,
     output_file=DEFAULT_IMPORTANCE_PLOT_PATH,
+    show_plot=True,
 ):
     """Visualize Random Forest feature importance."""
     print("\n=== Creating Feature Importance Visualization ===")
@@ -84,7 +85,10 @@ def create_feature_importance_plot(
     plt.tight_layout()
 
     plt.savefig(output_file)
-    plt.show()
+
+    if show_plot:
+        plt.show()
+
     plt.close()
 
     return str(output_file)

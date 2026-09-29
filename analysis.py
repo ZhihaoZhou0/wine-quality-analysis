@@ -77,7 +77,11 @@ def analyze_wine_data(df):
     return high_quality, type_summary
 
 
-def create_visualization(df, output_file=DEFAULT_PLOT_PATH):
+def create_visualization(
+    df,
+    output_file=DEFAULT_PLOT_PATH,
+    show_plot=True,
+):
     """Visualize the distribution of alcohol content by wine quality."""
     print("\n=== Creating Visualization ===")
 
@@ -90,7 +94,10 @@ def create_visualization(df, output_file=DEFAULT_PLOT_PATH):
     plt.tight_layout()
 
     plt.savefig(output_file)
-    plt.show()
+
+    if show_plot:
+        plt.show()
+
     plt.close()
 
     return str(output_file)

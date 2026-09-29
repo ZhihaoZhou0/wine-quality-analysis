@@ -1,0 +1,13 @@
+.git
+.github
+.venv
+venv
+__pycache__
+.pytest_cache
+.idea
+.vscode
+*.pyc
+.gitignore
+images
+tests
+rust_vs_python_intro.ipynb

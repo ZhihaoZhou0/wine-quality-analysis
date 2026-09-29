@@ -82,7 +82,7 @@ def test_create_visualization():
     """Test that the alcohol-by-quality visualization is created."""
     df = load_data()
 
-    output_file = create_visualization(df)
+    output_file = create_visualization(df, show_plot=False)
 
     assert output_file == "alcohol_by_quality.png"
     assert os.path.exists(output_file)
@@ -95,7 +95,10 @@ def test_create_feature_importance_plot():
 
     _, _, _, feature_importance = train_model(df)
 
-    output_file = create_feature_importance_plot(feature_importance)
+    output_file = create_feature_importance_plot(
+        feature_importance,
+        show_plot=False,
+    )
 
     assert output_file == "feature_importance.png"
     assert os.path.exists(output_file)
