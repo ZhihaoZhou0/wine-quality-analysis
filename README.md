@@ -2,6 +2,10 @@
 
 [![Tests](https://github.com/ZhihaoZhou0/wine-quality-analysis/actions/workflows/tests.yml/badge.svg)](https://github.com/ZhihaoZhou0/wine-quality-analysis/actions/workflows/tests.yml)
 
+## Refactoring Motto
+
+> **"If it works, test it. If it's messy, refactor it. If it's both, ship it."**
+
 ## Project Overview
 
 This project analyzes a merged red and white wine quality dataset using Python, Pandas, Polars, data visualization, and machine learning.
